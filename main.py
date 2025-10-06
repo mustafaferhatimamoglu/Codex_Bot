@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import random
 import sys
@@ -27,8 +27,10 @@ TEXT_FILE = SCRIPT_DIR / "metinim.txt"
 
 SUPPORTED_EXTENSIONS = {".png", ".jpg", ".jpeg", ".bmp"}
 FOLDER_CONFIG: Dict[str, Optional[str]] = {
-    "Folder_Type_A": None,  # Click only
-    "Folder_Type_Y": "y",   # Click and send 'y'
+    "Folder_Type_A": "shift+a",  # Click then send 'A'
+    "Folder_Type_Y": "y",        # Click then send 'y'
+    "Folder_Type_1": "1",        # Click then send '1'
+    "Folder_Type_2": "2",        # Click then send '2'
 }
 
 pyautogui.PAUSE = 0
@@ -373,7 +375,7 @@ def _alert_not_found(root: tk.Tk, monitors: List[Dict[str, int]]) -> None:
     show_toast(
         root,
         monitors,
-        "Eşleşme bulunamadı.",
+        "Eslesme bulunamadi.",
         duration_ms=1500,
         bg="#bb2222",
         fg="#ffffff",
@@ -393,9 +395,10 @@ def _alert_not_found(root: tk.Tk, monitors: List[Dict[str, int]]) -> None:
 
 def _show_start_instructions(root: tk.Tk, monitors: List[Dict[str, int]]) -> None:
     msg = (
-        "Kısayollar: F8 = HUD, Ctrl+Shift+C = Koordinat kopyala, F9 = metinim.txt yaz, "
-        "ESC = çıkış.\n"
-        "Görsel eşleşmesi bulunduğunda ilgili klasör için tanımlanan tuş gönderilir ve 3 sn beklenir."
+        "Kisayollar: F8 = HUD, Ctrl+Shift+C = koordinat kopyala, F9 = metinim.txt yaz, "
+        "ESC = cikis.\n"
+        "Varsayilan klasor tuslari: Folder_Type_A -> Shift+A, Folder_Type_Y -> y, "
+        "Folder_Type_1 -> 1, Folder_Type_2 -> 2; eslesme sonrasi 3 sn beklenir."
     )
     show_toast(root, monitors, msg, duration_ms=9000, wraplength=520)
 
@@ -429,7 +432,7 @@ def main() -> None:
             if not templates:
                 if first_run:
                     notify(
-                        "Folder_Type_A ve Folder_Type_Y klasörlerine görseller ekleyin.",
+                        "Folder_Type_A, Folder_Type_Y, Folder_Type_1 veya Folder_Type_2 klasorlerine gorseller ekleyin.",
                         duration_ms=2000,
                         bg="#bb2222",
                     )
@@ -462,7 +465,7 @@ def main() -> None:
 
     def _start_text_writer() -> None:
         if typing_lock.locked():
-            notify("Metin yazımı zaten devam ediyor.", duration_ms=1200)
+            notify("Metin yazimi zaten devam ediyor.", duration_ms=1200)
             return
 
         def _worker() -> None:
@@ -470,14 +473,14 @@ def main() -> None:
                 typing_cancel_event.clear()
                 lines = load_text_lines(TEXT_FILE)
                 if not lines:
-                    notify("metinim.txt bulunamadı veya boş.", bg="#bb2222", duration_ms=1800)
+                    notify("metinim.txt bulunamadi veya bos.", bg="#bb2222", duration_ms=1800)
                     return
-                notify("Metin yazımı başlatıldı.", duration_ms=1200)
+                notify("Metin yazimi baslatildi.", duration_ms=1200)
                 completed = type_text_lines(lines, stop_event, typing_cancel_event)
                 if completed and not stop_event.is_set():
-                    notify("Metin yazımı tamamlandı.", duration_ms=1200)
+                    notify("Metin yazimi tamamlandi.", duration_ms=1200)
                 else:
-                    notify("Metin yazımı durduruldu.", bg="#bb2222", duration_ms=1600)
+                    notify("Metin yazimi durduruldu.", bg="#bb2222", duration_ms=1600)
 
         threading.Thread(target=_worker, name="text-writer", daemon=True).start()
 

@@ -1,27 +1,29 @@
-﻿# Birleştirilmiş Otomasyon Aracı
+# Birlestirilmis Otomasyon Araci
 
-Bu proje, eski AutoHotkey senaryosu ile OpenCV tabanlı ekran otomasyonunu tek bir Python uygulamasında toplar. Artık AutoHotkey kurmaya gerek yok; tüm işler `main.py` altında toplanmıştır.
+Bu proje, eski AutoHotkey senaryosu ile OpenCV tabanli ekran otomasyonunu tek bir Python uygulamasinda toplar. Artik AutoHotkey kurmaya gerek yok; tum isler `main.py` altinda toplanmistir.
 
-## Özellikler
-- Çoklu monitör desteğiyle görsel eşleştirme ve tıklama
-- `Folder_Type_A` ve `Folder_Type_Y` klasörlerine eklediğiniz görseller otomatik taranır
-- Eşleşen görsel için istenen tuş otomatik gönderilir (varsayılan: `Folder_Type_Y` -> `y`)
+## Ozellikler
+- Coklu monitor destegiyle goruntuden sablon eslestirme ve otomatik tiklama
+- `Folder_Type_A`, `Folder_Type_Y`, `Folder_Type_1`, `Folder_Type_2` klasorlerine eklediginiz gorseller dongu boyunca yeniden taranir
+- Eslesen goruntu icin klasor kuralligina gore tiklama sonrasi tus (`Shift+A`, `y`, `1`, `2`) gonderilir
 - F8 ile fare koordinat HUD'u, Ctrl+Shift+C ile koordinat kopyalama
-- F9 ile `metinim.txt` içeriğini satır satır, rastgele aralıklarla ve `Ctrl+J` ile gönderme
-- ESC ile güvenli çıkış, tüm kancalar temizlenir
+- F9 ile `metinim.txt` icerigini satir satir, rastgele araliklarla ve `Ctrl+J` ile gonderme
+- ESC ile guvenli cikis, tum kancalar temizlenir
 
-## Dizin Yapısı
-- `main.py` – birleşik otomasyon uygulaması
-- `requirements.txt` – gerekli Python paketleri
-- `Folder_Type_A/` – görsel bulunduğunda **yalnızca tıklama** yapılır
-- `Folder_Type_Y/` – görsel bulunduğunda tıklama + `'y'` tuşu gönderilir
-- `metinim.txt` – F9 ile gönderilecek metin (UTF-8 kaydedin)
+## Dizin Yapisi
+- `main.py` - birlesik otomasyon uygulamasi
+- `requirements.txt` - gerekli Python paketleri
+- `Folder_Type_A/` - eslesme sonrasi tikla ve `Shift+A` gonder
+- `Folder_Type_Y/` - eslesme sonrasi tikla ve `y` gonder
+- `Folder_Type_1/` - eslesme sonrasi tikla ve `1` gonder
+- `Folder_Type_2/` - eslesme sonrasi tikla ve `2` gonder
+- `metinim.txt` - F9 ile gonderilecek metin (UTF-8 olarak kaydedin)
 
-Yeni görsel eklemek için ilgili klasöre kopyalamanız yeterli; kodu güncellemeniz gerekmez. Uygulama her döngüde klasörleri yeniden tarar.
+Yeni goruntu eklemek icin ilgili klasore kopyalamaniz yeterli; kodu guncellemeniz gerekmez. Uygulama her dongude klasorleri yeniden tarar.
 
 ## Kurulum
-1. Python 3.10+ (Tkinter dahil) ve pip kurulu olmalı.
-2. (Önerilir) Sanal ortam hazırlayın:
+1. Python 3.10+ (Tkinter dahil) ve pip kurulu olmali.
+2. (Onerilir) Sanal ortam hazirlayin:
    ```powershell
    py -3.11 -m venv .venv
    .\.venv\Scripts\activate
@@ -31,37 +33,42 @@ Yeni görsel eklemek için ilgili klasöre kopyalamanız yeterli; kodu güncelle
    pip install -r requirements.txt
    ```
 
-## Çalıştırma
+## Calistirma
 ```powershell
 python main.py
 ```
 
-Çoklu monitör kullanıyorsanız ekran görüntüsü alma yetkisine, klavye ve fare kontrolü için yönetici iznine ihtiyaç duyabilirsiniz. Yetki eksikliğinde `keyboard` veya `pyautogui` kütüphaneleri hata verebilir.
+Coklu monitor kullaniyorsaniz ekran goruntusu alma yetkisine, klavye ve fare kontrolu icin yonetici iznine ihtiyac duyabilirsiniz. Yetki eksikliginde `keyboard` veya `pyautogui` kutuphaneleri hata verebilir.
 
-## Kısayollar
-- **F8**: HUD aç/kapat (basılı tut)
-- **Ctrl+Shift+C**: Fare X,Y koordinatlarını panoya kopyala
-- **F9**: `metinim.txt` içeriğini yaz (satır aralarında rastgele gecikme + `Ctrl+J`)
-- **ESC**: Uygulamadan çık
+## Kisayollar
+- **F8**: HUD ac/kapat (basili tut)
+- **Ctrl+Shift+C**: Fare X,Y koordinatlarini panoya kopyala
+- **F9**: `metinim.txt` icerigini yaz (satir aralarinda rastgele gecikme + `Ctrl+J`)
+- **ESC**: Uygulamadan cik
 
-## Klasör Davranışını Özelleştirme
-`main.py` içindeki `FOLDER_CONFIG` sözlüğü, klasör -> tuş eşlemesini tanımlar:
+## Klasor Davranisini Ozellestirme
+`main.py` icindeki `FOLDER_CONFIG` sozlugu, klasor -> tus eslemesini tanimlar:
 ```python
 FOLDER_CONFIG = {
-    "Folder_Type_A": None,      # Yalnızca tıkla
-    "Folder_Type_Y": "y",      # Tıkla ve 'y' gönder
+    "Folder_Type_A": "shift+a",  # Tikla ve 'A' gonder
+    "Folder_Type_Y": "y",        # Tikla ve 'y' gonder
+    "Folder_Type_1": "1",        # Tikla ve '1' gonder
+    "Folder_Type_2": "2",        # Tikla ve '2' gonder
 }
 ```
-- Başka klasörler eklemek veya farklı tuşlar (ör. `"ctrl+j"`, `"enter"`) göndermek için bu sözlüğü güncelleyin.
-- Tuş dizileri `keyboard.send()` formatıyla uyumlu olmalıdır.
+- Baska klasorler eklemek veya farkli tuslar (or. `"ctrl+j"`, `"enter"`) gondermek icin bu sozlugu guncelleyin.
+- Tus dizileri `keyboard.send()` formatiyla uyumlu olmalidir.
 
-## Metin Gönderimi (F9)
-- `metinim.txt` dosyasını UTF-8 olarak kaydedin.
-- Her satır yazıldıktan sonra `Ctrl+J` gönderilir.
-- Komut devam ederken F9 tekrarına izin verilmez; iş tamamlandığında veya ESC ile çıkınca tekrar çalıştırabilirsiniz.
+## Metin Gonderimi (F9)
+- `metinim.txt` dosyasini UTF-8 olarak kaydedin.
+- Her satir yazildiktan sonra `Ctrl+J` gonderilir.
+- Komut devam ederken F9 tekrarina izin verilmez; is tamamlandiginda veya ESC ile cikinca tekrar calistirabilirsiniz.
 
-## İpuçları
-- Görsel eşleşmesi için ekran çözünürlüğü ve DPI ile birebir yakalanmış şablonlar kullanın.
-- Eşleşme bulunamazsa eşik değerini (`threshold`) `main.py` içinde düşürmeyi deneyin.
-- Yönetici olarak çalıştırmak, global kısayolların sorunsuz yakalanmasına yardımcı olur.
+## Ipucalari
+- Goruntu eslesmesi icin ekran cozunurlugu ve DPI ile birebir yakalanmis sablonlar kullanin.
+- Eslesme bulunamazsa esik degerini (`threshold`) `main.py` icinde dusurmayi deneyin.
+- Yonetici olarak calistirmak, global kisayollarin sorunsuz yakalanmasina yardimci olur.
+
+
+
 
