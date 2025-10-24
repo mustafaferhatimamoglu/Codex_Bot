@@ -23,7 +23,7 @@ except Exception:
     winsound = None
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-TEXT_FILE = SCRIPT_DIR / "metinim.txt"
+TEXT_FILE = SCRIPT_DIR / "text.txt"
 
 SUPPORTED_EXTENSIONS = {".png", ".jpg", ".jpeg", ".bmp"}
 FOLDER_CONFIG: Dict[str, Optional[str]] = {
@@ -395,7 +395,7 @@ def _alert_not_found(root: tk.Tk, monitors: List[Dict[str, int]]) -> None:
 
 def _show_start_instructions(root: tk.Tk, monitors: List[Dict[str, int]]) -> None:
     msg = (
-        "Kisayollar: F8 = HUD, Ctrl+Shift+C = koordinat kopyala, F9 = metinim.txt yaz, "
+        "Kisayollar: F8 = HUD, Ctrl+Shift+C = koordinat kopyala, F9 = text.txt yaz, "
         "ESC = cikis.\n"
         "Varsayilan klasor tuslari: Folder_Type_A -> Shift+A, Folder_Type_Y -> y, "
         "Folder_Type_1 -> 1, Folder_Type_2 -> 2; eslesme sonrasi 3 sn beklenir."
@@ -473,7 +473,7 @@ def main() -> None:
                 typing_cancel_event.clear()
                 lines = load_text_lines(TEXT_FILE)
                 if not lines:
-                    notify("metinim.txt bulunamadi veya bos.", bg="#bb2222", duration_ms=1800)
+                    notify("text.txt bulunamadi veya bos.", bg="#bb2222", duration_ms=1800)
                     return
                 notify("Metin yazimi baslatildi.", duration_ms=1200)
                 completed = type_text_lines(lines, stop_event, typing_cancel_event)
@@ -515,7 +515,7 @@ def main() -> None:
 
     _show_start_instructions(root, monitors)
     print("Ready. Continuous search running.")
-    print("F8: HUD | Ctrl+Shift+C: copy mouse coords | F9: type metinim.txt | ESC: exit")
+    print("F8: HUD | Ctrl+Shift+C: copy mouse coords | F9: type text.txt | ESC: exit")
 
     try:
         root.mainloop()

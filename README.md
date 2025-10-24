@@ -1,3 +1,7 @@
+.\python-3.13.9-amd64.exe /quiet InstallAllUsers=1 PrependPath=1 Include_pip=1 Include_test=0 /log C:\Windows\Temp\python-install.log
+py -m pip install -r requirements.txt
+py .\main.py
+
 # Birlestirilmis Otomasyon Araci
 
 Bu proje, eski AutoHotkey senaryosu ile OpenCV tabanli ekran otomasyonunu tek bir Python uygulamasinda toplar. Artik AutoHotkey kurmaya gerek yok; tum isler `main.py` altinda toplanmistir.
@@ -7,7 +11,7 @@ Bu proje, eski AutoHotkey senaryosu ile OpenCV tabanli ekran otomasyonunu tek bi
 - `Folder_Type_A`, `Folder_Type_Y`, `Folder_Type_1`, `Folder_Type_2` klasorlerine eklediginiz gorseller dongu boyunca yeniden taranir
 - Eslesen goruntu icin klasor kuralligina gore tiklama sonrasi tus (`Shift+A`, `y`, `1`, `2`) gonderilir
 - F8 ile fare koordinat HUD'u, Ctrl+Shift+C ile koordinat kopyalama
-- F9 ile `metinim.txt` icerigini satir satir, rastgele araliklarla ve `Ctrl+J` ile gonderme
+- F9 ile `text.txt` icerigini satir satir, rastgele araliklarla ve `Ctrl+J` ile gonderme
 - ESC ile guvenli cikis, tum kancalar temizlenir
 
 ## Dizin Yapisi
@@ -17,7 +21,7 @@ Bu proje, eski AutoHotkey senaryosu ile OpenCV tabanli ekran otomasyonunu tek bi
 - `Folder_Type_Y/` - eslesme sonrasi tikla ve `y` gonder
 - `Folder_Type_1/` - eslesme sonrasi tikla ve `1` gonder
 - `Folder_Type_2/` - eslesme sonrasi tikla ve `2` gonder
-- `metinim.txt` - F9 ile gonderilecek metin (UTF-8 olarak kaydedin)
+- `text.txt` - F9 ile gonderilecek metin (UTF-8 olarak kaydedin)
 
 Yeni goruntu eklemek icin ilgili klasore kopyalamaniz yeterli; kodu guncellemeniz gerekmez. Uygulama her dongude klasorleri yeniden tarar.
 
@@ -43,7 +47,7 @@ Coklu monitor kullaniyorsaniz ekran goruntusu alma yetkisine, klavye ve fare kon
 ## Kisayollar
 - **F8**: HUD ac/kapat (basili tut)
 - **Ctrl+Shift+C**: Fare X,Y koordinatlarini panoya kopyala
-- **F9**: `metinim.txt` icerigini yaz (satir aralarinda rastgele gecikme + `Ctrl+J`)
+- **F9**: `text.txt` icerigini yaz (satir aralarinda rastgele gecikme + `Ctrl+J`)
 - **ESC**: Uygulamadan cik
 
 ## Klasor Davranisini Ozellestirme
@@ -60,7 +64,7 @@ FOLDER_CONFIG = {
 - Tus dizileri `keyboard.send()` formatiyla uyumlu olmalidir.
 
 ## Metin Gonderimi (F9)
-- `metinim.txt` dosyasini UTF-8 olarak kaydedin.
+- `text.txt` dosyasini UTF-8 olarak kaydedin.
 - Her satir yazildiktan sonra `Ctrl+J` gonderilir.
 - Komut devam ederken F9 tekrarina izin verilmez; is tamamlandiginda veya ESC ile cikinca tekrar calistirabilirsiniz.
 
